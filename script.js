@@ -6,13 +6,32 @@ $( document ).ready(function() {
   });
 
   var savebutton = $('.saveBtn');
+  var hourX = $('.hour').text();
+  var datedisplay = $('#currentDay');
 
-  savebutton.on('click', function () {
-  console.log('saved!');
+function displayDate(){
+    var todaydate = dayjs().format ('MMM DD, YYYY');
+    datedisplay.text(todaydate);
+}
+displayDate();
+////////
+  $('.saveBtn').get(0).addEventListener("click", function() {
+    console.log('saved!');
+    localStorage.setItem('.hour', text);
+});
+
+  
+
+
+
+localStorage.getItem(hourX);
 
   //id in the containing time-block as a key to save the user input in local storage
-  });
-  
+
+  // ids are: hour-9, hour-10, hour-11
+  // localStorage.getItem('key' 'value');
+ 
+
 
 
 
