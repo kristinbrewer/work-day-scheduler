@@ -6,7 +6,6 @@ $( document ).ready(function() {
   });
 
   var savebutton = $('.saveBtn');
-  var hourX = $('.hour').text();
   var datedisplay = $('#currentDay');
 
 function displayDate(){
@@ -15,17 +14,48 @@ function displayDate(){
 }
 displayDate();
 ////////
-  $('.saveBtn').get(0).addEventListener("click", function() {
+  $('.saveBtn').on("click", function() {
     console.log('saved!');
-    localStorage.setItem('.hour', text);
+    let text = $(this).siblings('.description').val();
+    console.log('text = ', text)
+    let timeslot = $(this).parent().attr('id');
+    console.log('timeslot = ', timeslot)
+    localStorage.setItem(timeslot, text);
 });
 
   
 
 
 
-localStorage.getItem(hourX);
 
+$('#hour-9 .description').val(localStorage.getItem('hour-9'));
+$('#hour-10 .description').val(localStorage.getItem('hour-10'));
+$('#hour-11 .description').val(localStorage.getItem('hour-11'));
+
+function applyColor () {
+    let timenow = dayjs().hour();
+    //adjust time now for testing
+   
+    $('.time-block').each(function () {
+        var timeSlotHour = parseInt($(this).attr('id').split('-')[1]);
+        if (timeSlotHour < timenow) {
+            console.log("past")
+            $(this).addClass('past');
+          } else if (timeSlotHour === timenow) {
+            console.log("present");
+            $(this).removeClass('past');
+            $(this).addClass('present');
+          } else {
+            console.log("future")
+            $(this).removeClass('past');
+            $(this).removeClass('present');
+            $(this).addClass('future');
+          }
+        });
+
+    } 
+
+applyColor();
   //id in the containing time-block as a key to save the user input in local storage
 
   // ids are: hour-9, hour-10, hour-11
@@ -63,3 +93,4 @@ $(function () {
     //
     // TODO: Add code to display the current date in the header of the page.
   });
+
